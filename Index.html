@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bible Story Quiz for Kids</title>
+
+<style>
+body {
+    font-family: 'Comic Sans MS', cursive;
+    background: linear-gradient(#cce7ff, #ffffff);
+    text-align: center;
+    padding: 20px;
+}
+
+h1, h2 {
+    color: #2b4eff;
+}
+
+.container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 700px;
+    margin: auto;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+/* Cartoon */
+.cartoon {
+    margin: 20px auto;
+    width: 120px;
+    height: 200px;
+    position: relative;
+    animation: jump 1.5s infinite;
+}
+.head {
+    width: 80px;
+    height: 80px;
+    background: #ffcc99;
+    border-radius: 50%;
+    margin: auto;
+}
+.eye {
+    width: 10px;
+    height: 10px;
+    background: #000;
+    border-radius: 50%;
+    position: absolute;
+    top: 30px;
+}
+.eye.left { left: 35px; }
+.eye.right { right: 35px; }
+
+.body {
+    width: 60px;
+    height: 80px;
+    background: #ff4444;
+    margin: auto;
+    border-radius: 10px;
+}
+
+@keyframes jump {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Quiz */
+.question {
+    font-size: 18px;
+    margin-top: 20px;
+}
+.options label {
+    display: block;
+    background: #eef;
+    margin: 8px;
+    padding: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+button {
+    background: #2b4eff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+button:hover {
+    background: #1a34cc;
+}
+
+#timer {
+    font-size: 18px;
+    color: red;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📖 Bible Story for Kids</h1>
+
+<div class="cartoon">
+    <div class="head">
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+    </div>
+    <div class="body"></div>
+</div>
+
+<p>
+<b>Story:</b><br>
+David was a young shepherd boy. One day, a giant named Goliath challenged the people of Israel.
+Everyone was afraid, but David trusted God. With a small stone and a sling, David defeated Goliath.
+God helped David because he had faith.
+</p>
+
+<hr>
+
+<h2>📝 Bible Quiz</h2>
+<p id="timer">Time: 30</p>
+
+<div id="quiz">
+    <div class="question">1. Who was the young shepherd boy?</div>
+    <div class="options">
+        <label><input type="radio" name="q1" value="a"> Moses</label>
+        <label><input type="radio" name="q1" value="b"> David</label>
+        <label><input type="radio" name="q1" value="c"> Samson</label>
+    </div>
+
+    <div class="question">2. What was the giant's name?</div>
+    <div class="options">
+        <label><input type="radio" name="q2" value="a"> Goliath</label>
+        <label><input type="radio" name="q2" value="b"> Saul</label>
+        <label><input type="radio" name="q2" value="c"> Noah</label>
+    </div>
+
+    <div class="question">3. What weapon did David use?</div>
+    <div class="options">
+        <label><input type="radio" name="q3" value="a"> Sword</label>
+        <label><input type="radio" name="q3" value="b"> Spear</label>
+        <label><input type="radio" name="q3" value="c"> Sling and stone</label>
+    </div>
+
+    <br>
+    <button onclick="submitQuiz()">Submit Quiz</button>
+</div>
+
+<h2 id="result"></h2>
+
+</div>
+
+<script>
+let timeLeft = 30;
+let timer = setInterval(() => {
+    timeLeft--;
+    document.getElementById("timer").innerText = "Time: " + timeLeft;
+    if (timeLeft <= 0) {
+        clearInterval(timer);
+        submitQuiz();
+    }
+}, 1000);
+
+function submitQuiz() {
+    clearInterval(timer);
+    let score = 0;
+
+    if (document.querySelector('input[name="q1"]:checked')?.value === "b") score++;
+    if (document.querySelector('input[name="q2"]:checked')?.value === "a") score++;
+    if (document.querySelector('input[name="q3"]:checked')?.value === "c") score++;
+
+    document.getElementById("result").innerHTML =
+        "🎉 Your Score: " + score + " / 3 <br>" +
+        (score >= 2 ? "😊 God bless you! Great job!" : "🙂 Try again. God loves you!");
+}
+</script>
+
+</body>
+</html>
